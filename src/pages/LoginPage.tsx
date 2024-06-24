@@ -7,17 +7,33 @@ import { CardTitle } from "@/components/ui/card";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useRef } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { login } from "@/http/api";
 
 const Loginpage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
   const passRef = useRef<HTMLInputElement>(null);
+  const navigate = useNavigate();
+  //mutation
+  const mutation = useMutation({
+    mutationFn: login,
+    onSuccess: () => {
+      console.log("Login Successfull");
+      //redirect to dashboard
+      navigate("/dashboard/home");
+    },
+  });
   const handleLoginSubmit = () => {
     const email = emailRef.current?.value;
     const password = passRef.current?.value;
-
-    // make server call
+    //console.log("Data:", { email, password });
+    if (!email || !password) {
+      return alert("please enter email and password");
+    }
+    // make server call using axios and react query
+    mutation.mutate({ email, password });
   };
   return (
     <div className="flex justify-center items-center h-screen">
