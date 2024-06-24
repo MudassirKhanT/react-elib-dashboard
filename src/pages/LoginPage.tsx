@@ -8,8 +8,17 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { useRef } from "react";
 
 const Loginpage = () => {
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passRef = useRef<HTMLInputElement>(null);
+  const handleLoginSubmit = () => {
+    const email = emailRef.current?.value;
+    const password = passRef.current?.value;
+
+    // make server call
+  };
   return (
     <div className="flex justify-center items-center h-screen">
       <Card className="w-full max-w-sm">
@@ -20,19 +29,21 @@ const Loginpage = () => {
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
             <Label htmlFor="email">Email</Label>
-            <Input id="email" type="email" placeholder="m@example.com" required />
+            <Input ref={emailRef} id="email" type="email" placeholder="m@example.com" required />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="password">Password</Label>
-            <Input id="password" type="password" required />
+            <Input ref={passRef} id="password" type="password" required />
           </div>
         </CardContent>
         <CardFooter>
           <div className="w-full">
-            <Button className="w-full">Sign in</Button>
+            <Button onClick={handleLoginSubmit} className="w-full">
+              Sign in
+            </Button>
             <div className="mt-4 text-center text-sm">
               Don't have an account?{" "}
-              <Link to={"/register"} className="underline">
+              <Link to={"/auth/register"} className="underline">
                 Sign up
               </Link>
             </div>
