@@ -12,7 +12,6 @@ import { useRef } from "react";
 import { useMutation } from "@tanstack/react-query";
 import { login } from "@/http/api";
 import { LoaderCircle } from "lucide-react";
-import { cn } from "@/lib/utils";
 
 const Loginpage = () => {
   const emailRef = useRef<HTMLInputElement>(null);
@@ -43,7 +42,7 @@ const Loginpage = () => {
         <CardHeader>
           <CardTitle className="text-2xl">Login</CardTitle>
           <CardDescription>Enter your email below to login to your account.</CardDescription>
-          {mutation.isError && <span className="text-red-500 text-sm">{"Something Went Wrong"}</span>}
+          {mutation.isError && <span className="text-red-500 text-sm">{"Incorrect Email or Password"}</span>}
         </CardHeader>
         <CardContent className="grid gap-4">
           <div className="grid gap-2">
